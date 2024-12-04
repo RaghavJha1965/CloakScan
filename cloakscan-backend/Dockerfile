@@ -14,20 +14,19 @@ RUN apk update && apk add --no-cache \
     gcompat \
     libc6-compat \
     fontconfig \
-    dbus \
-    curl
+    dbus
 
 # Set working directory
 WORKDIR /app
 
-# Install dependencies
-COPY package*.json ./ 
+# Copy package files and install dependencies
+COPY package*.json ./
 RUN npm install puppeteer@19.7.0 jsdom
 
 # Copy scripts
 COPY scripts/analyze.js ./scripts/
 
-# Set environment variables for Puppeteer
+# Environment variables for Puppeteer
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
     PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
