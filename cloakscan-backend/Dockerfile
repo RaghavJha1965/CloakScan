@@ -5,16 +5,11 @@ RUN apk update && apk add --no-cache \
     chromium \
     nss \
     freetype \
-    freetype-dev \
     harfbuzz \
     ca-certificates \
     ttf-freefont \
-    libstdc++ \
-    udev \
-    gcompat \
-    libc6-compat \
-    fontconfig \
-    dbus
+    && mkdir -p /usr/lib/chromium/
+
 
 # Set working directory
 WORKDIR /app

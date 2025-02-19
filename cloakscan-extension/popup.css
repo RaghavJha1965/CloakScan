@@ -1,26 +1,75 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 10px;
-    text-align: center;
-  }
-  
-  button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #0078D7;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #005A9E;
-  }
-  
-  #results {
-    margin-top: 20px;
-    text-align: left;
-  }
-  
+  font-family: Arial, sans-serif;
+  padding: 10px;
+  width: 300px;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+}
+
+#collect-links {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#collect-links:hover {
+  background-color: #0056b3;
+}
+
+.warning {
+  background-color: #ffcccc;
+  color: #990000;
+  padding: 8px;
+  margin-top: 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.safe {
+  background-color: #ccffcc;
+  color: #006600;
+  padding: 8px;
+  margin-top: 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+ul.malicious-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+ul.malicious-list li {
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.status-badge {
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+.status-badge.danger {
+  background-color: #ff4d4d;
+  color: white;
+}

@@ -1,21 +1,19 @@
-require("dotenv").config();
-const express = require("express");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-
-const linkRoutes = require("./routes/links");
-
+const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 3000;
+const port = 3000;
 
-app.use(cors());
-app.use(bodyParser.json());
-app.use("/api/links", linkRoutes);
+app.use(express.json()); // Parse JSON bodies
 
-mongoose
-  .connect(process.env.MONGODB_URI)
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.error("MongoDB connection error:", err));
+app.post('/api/links/analyze', async (req, res) => {
+  const { url } = req.body;
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  if (!url) return res.status(400).json({ error: 'URL is required' });
+
+  try {
+    const analysisResults = await analyze(url); // Pass the URL to analyze function
+    res.json({ results: analysisResults });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to analyze URL' });
+  }
+});
