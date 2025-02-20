@@ -138,47 +138,32 @@ async function handleFileLink(url) {
     
 
 async function analyze(url) {
-  
-  
-
   const fileExtensions = ['.pdf', '.lnk', '.exe', '.zip', '.rar'];
   const extension = path.extname(url).toLowerCase();
 
   if (fileExtensions.includes(extension)) {
-    
     const fileAnalysis = await handleFileLink(url);
-    
+    return [{ url, status: fileAnalysis }]; // ✅ Return the result
   } else {
     let browser;
     try {
-      
-
       browser = await puppeteer.launch({
         headless: true,
-        executablePath: '/usr/bin/chromium-browser', // Required inside Docker
+        executablePath: '/usr/bin/chromium-browser',
         args: [
           '--no-sandbox',
           '--disable-setuid-sandbox',
           '--disable-gpu',
-          '--disable-dev-shm-usage', // Prevents shared memory issues
+          '--disable-dev-shm-usage',
           '--disable-software-rasterizer',
         ],
       });
 
-      
-
-      // ✅ Fix: Declare `page` outside the inner try block
       const page = await browser.newPage();
-      
-
-      
       await page.goto(url, { waitUntil: 'networkidle2', timeout: 100000 });
-      
 
       const links = await page.$$eval('a', anchors => anchors.map(a => a.href));
-      
 
-      
       const analyzedLinks = await Promise.all(
         links.map(async (link) => ({
           url: link,
@@ -186,21 +171,17 @@ async function analyze(url) {
         }))
       );
 
-      analyzedLinks.forEach(({ url, status }) => {
-        
-      });
+      return analyzedLinks; // ✅ Return analyzed links
 
-      
     } catch (err) {
       console.error(`🚨 Error processing page: ${err.message}`);
+      throw new Error('Failed to analyze URL');
     } finally {
-      if (browser) {
-        await browser.close();
-        
-      }
+      if (browser) await browser.close();
     }
   }
 }
+
 
 analyze();
 
