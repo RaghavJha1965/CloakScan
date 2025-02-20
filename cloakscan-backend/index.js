@@ -3,6 +3,11 @@ const app = express();
 
 app.use(express.json()); // Parse JSON bodies
 
+// ✅ Root route for testing
+app.get('/', (req, res) => {
+  res.send('🚀 CloakScan Backend is running!');
+});
+
 app.post('/api/links/analyze', async (req, res) => {
   const { url } = req.body;
 
@@ -17,5 +22,5 @@ app.post('/api/links/analyze', async (req, res) => {
   }
 });
 
-// ✅ Export the app for Vercel serverless function
+// ✅ Export the app for Vercel
 module.exports = app;
