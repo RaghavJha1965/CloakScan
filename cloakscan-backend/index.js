@@ -8,6 +8,8 @@ app.get('/', (req, res) => {
   res.send('🚀 CloakScan Backend is running!');
 });
 
+
+
 app.post('/api/links/analyze', async (req, res) => {
   const { url } = req.body;
 
@@ -21,6 +23,8 @@ app.post('/api/links/analyze', async (req, res) => {
     res.status(500).json({ error: 'Failed to analyze URL' });
   }
 });
+
+app.use('/api/links', analyzeRouter);
 
 // ✅ Export the app for Vercel
 module.exports = app;
