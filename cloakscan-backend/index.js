@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const port = 3000;
 
 app.use(express.json()); // Parse JSON bodies
 
@@ -17,3 +16,6 @@ app.post('/api/links/analyze', async (req, res) => {
     res.status(500).json({ error: 'Failed to analyze URL' });
   }
 });
+
+// ✅ Export the app for Vercel serverless function
+module.exports = app;
