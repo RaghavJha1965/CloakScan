@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 
+const { analyze } = require('./scripts/analyze'); // Import the analyze function
+
 app.use(express.json());
 
 app.post('/api/links/analyze', async (req, res) => {
@@ -10,7 +12,7 @@ app.post('/api/links/analyze', async (req, res) => {
   if (!url) return res.status(400).json({ error: 'URL is required' });
 
   try {
-    const analysisResults = await analyze(url); // Make sure this function returns actual data
+    const analysisResults = await analyze(url); // Use the imported analyze function
     res.json({ results: analysisResults });
   } catch (err) {
     console.error(err);
@@ -18,10 +20,8 @@ app.post('/api/links/analyze', async (req, res) => {
   }
 });
 
-
 app.get('/', (req, res) => {
   res.send('CloakScan Backend is working 🚀');
 });
 
-// Export the app for Vercel
 module.exports = app;
